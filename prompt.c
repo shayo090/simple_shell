@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "shell.h"
 #include <unistd.h>
+
 /**
  * prompt - to get started or file indirection used
  * Return: Nothing
