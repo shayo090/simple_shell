@@ -7,20 +7,6 @@
 #include "shell.h"
 
 /**
- * prompt - to get started or file indirection used
- * Return: Nothing
- */
-void prompt(void)
-{
-	int int_mode;
-
-	int_mode = isatty(STDIN_FILENO);
-	if (int_mode == 1)
-		write(STDOUT_FILENO, "$", 1);
-}
-
-
-/**
  * builtin_cmd - print environment variables
  * @env: environment array
  * @command: command input
@@ -108,9 +94,9 @@ void __exit(char *ss)
 }
 
 /**
- * find_command - funtion that locates commands
+ * find_command - find command
  * @cmd: command to find
- * @env: environment variable
+ * @str: string containing path
  * Return: Nothing
  */
 
@@ -119,6 +105,7 @@ char *find_command(char *cmd, char *str)
 
 	char *token, *trace;
 	struct stat st;
+
 	token = strtok(str, ":");
 	while (token != NULL)
 	{
