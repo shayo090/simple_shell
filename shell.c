@@ -19,11 +19,11 @@
 int main(int __attribute__((unused)) argc, char *argv[], char *env[])
 {
 	pid_t child;
-	char *command[16], *cwd = _getenv("PATH", env), *line = NULL;
+	char *command[16]; /* *cwd = _getenv("PATH", env)*/
 	int i, status;
 	struct stat st;
 	size_t len = 0;
-	char *trace, *tok, *path, *str;
+	char *trace, *tok, *path, *line = NULL; /* *str;*/
 
 	path = malloc(sizeof(char) * PATH_MAX);
 	while (1)
@@ -36,25 +36,25 @@ int main(int __attribute__((unused)) argc, char *argv[], char *env[])
 		command[i] = NULL;
 		if (command[0] == NULL)
 			continue;
-		builtin_cmd(command, env);
+		/*builtin_cmd(command, env);*/
 		if (stat(command[0], &st) == 0)
 			trace = strdup(command[0]);
-		else
-			str = strdup(cwd), trace = find_command(command[0], str);
+		/*else
+			str = strdup(cwd), trace = find_command(command[0], str); */
 		if (stat(trace, &st) == 0)
 		{
 			child = fork();
 			if (!child)
 			{
-				if (execve(trace, command, NULL) == -1)
+				if (execve(trace, command, env) == -1)
 					perror("execve"), exit(EXIT_FAILURE); }
 			else
 				wait(&status); }
 		else
 		{
-			write(1, argv[0], strlen(argv[0])), write(1, ": No such file or directory\n", 18);
+			write(1, argv[0], strlen(argv[0])), write(1, ": No such file or directory\n", 28);
 			continue;
 		}}
-	free(path), free(line), exit(status);
+	write(1,"\n", 1), free(path), free(line), exit(status);
 	return (0);
 }
