@@ -52,9 +52,9 @@ int main(int __attribute__((unused)) argc, char *argv[], char *env[])
 				wait(&status); }
 		else
 		{
-			write(1, argv[0], strlen(argv[0])), write(1, ": No such command\n", 18);
+			write(1, argv[0], strlen(argv[0])), write(1, ": No such file or directory\n", 18);
 			continue;
 		}}
-	write(1, "\n", 1), free(path), free(line), exit(status);
+	free(path), free(line), exit(status);
 	return (0);
 }
