@@ -55,6 +55,6 @@ int main(int __attribute__((unused)) argc, char *argv[], char *env[])
 			write(1, argv[0], strlen(argv[0])), write(1, ": No such file or directory\n", 28);
 			continue;
 		}}
-	write(1,"\n", 1), free(path), free(line), exit(status);
+	free(path), free(line), exit(status);
 	return (0);
 }
