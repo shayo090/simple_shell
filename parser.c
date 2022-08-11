@@ -29,6 +29,7 @@ void builtin_cmd(char *command[], char **env)
 			my_builtins[a].func(env);
 		a++;
 	}
+	free(env); free(command);
 }
 
 

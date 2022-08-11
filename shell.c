@@ -33,15 +33,15 @@ int main(int __attribute__((unused)) argc, char *argv[], char *env[])
 		{	free(line);
 			break;}
 		for (i = 0; i < 16; i++, line = NULL)
-			tok =(char *)strtok(line, " \t\n\r\0"), command[i] = tok, free(tok);
+			tok =(char *)strtok(line, " \t\n\r\0"), command[i] = tok;
 		command[i] = NULL;
-		if (command[0] == NULL || command[0] == (char *)"\0")
+		if (command[0] == NULL)
 			continue;
 		builtin_cmd(command, env);
 		if (stat(command[0], &st) == 0)
 			trace = strdup(command[0]), free(command[0]);
 		else
-			str = strdup(cwd), trace = find_command(command[0], str), free(command[0]);
+			str = strdup(cwd), trace = find_command(command[0], str);
 		if (stat(trace, &st) == 0)
 		{
 			child = fork();
@@ -54,7 +54,7 @@ int main(int __attribute__((unused)) argc, char *argv[], char *env[])
 		else
 		{
 			write(1, argv[0], strlen(argv[0]) );
-			write(1, ": No such file or directory\n", 28), free(command[0]);
+			write(1, ": No such file or directory\n", 28);
 			continue;
 		}}
 	write(1,"\n",1);
