@@ -15,7 +15,7 @@ void prompt(void)
 
 	int_mode = isatty(STDIN_FILENO);
 	if (int_mode == 1)
-		write(STDOUT_FILENO, "$", 2);
+		write(1, "$", 1);
 }
 
 

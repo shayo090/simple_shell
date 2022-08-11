@@ -29,7 +29,6 @@ void builtin_cmd(char *command[], char **env)
 			my_builtins[a].func(env);
 		a++;
 	}
-	free(env); free(command);
 }
 
 
@@ -56,7 +55,7 @@ char *_getenv(char *var, char **env)
 		}
 		i++;
 	}
-	free(str), free(var), free(env);
+	free(str), free(env), free(var);
 	return (token);
 }
 
@@ -116,14 +115,17 @@ char *find_command(char *cmd, char *str)
 		token = strtok(NULL, ":");
 		if (token == NULL)
 			break;
-		trace = strdup(token);
+		trace = malloc(sizeof(char) * (sizeof(token) + sizeof(cmd) + sizeof("/")));
+		strcpy(trace, token);
 		trace = strcat(trace, "/");
-		strcat(trace, cmd);
+		trace = strcat(trace, cmd);
 		if (stat(trace, &st) == 0)
-			token = NULL;
+			token = NULL, free(token);
 		else
-			continue;
+		{	free(trace);	
+			continue;}
+
 	}
-	free(token), free(str), free(cmd);
+	free(str);
 	return (trace);
 }
