@@ -55,6 +55,7 @@ char *_getenv(char *var, char **env)
 		}
 		i++;
 	}
+	free(str), free(var), free(env);
 	return (token);
 }
 
@@ -74,6 +75,7 @@ void _env(char **env)
 		write(1, "\n", 1);
 		i++;
 	}
+	free(env);
 }
 
 /**
@@ -90,6 +92,7 @@ void __exit(char *ss)
 		s = 0;
 	else
 		s = atoi(ss);
+	free(ss);
 	_exit(s);
 }
 
@@ -120,5 +123,6 @@ char *find_command(char *cmd, char *str)
 		else
 			continue;
 	}
+	free(token), free(str), free(cmd);
 	return (trace);
 }
