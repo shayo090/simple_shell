@@ -55,6 +55,6 @@ int main(int __attribute__((unused)) argc, char *argv[], char *env[])
 			continue;
 		}
 	}
-	write(1, "\n", 1), free(line), exit(status), free(trace), free(str), free(cwd);
+	free(line), exit(status), free(trace), free(str), free(cwd);
 	return (0);
 }
