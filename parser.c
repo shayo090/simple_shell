@@ -122,10 +122,10 @@ char *find_command(char *cmd, char *str)
 		if (stat(trace, &st) == 0)
 			token = NULL, free(token);
 		else
-		{	free(trace);	
+		{	trace = NULL, free(trace);	
 			continue;}
 
 	}
-	free(str);
+	free(str), free(token);
 	return (trace);
 }
