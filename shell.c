@@ -29,7 +29,8 @@ int main(int __attribute__((unused)) argc, char *argv[], char *env[])
 	{
 		prompt();
 		if (getline(&line, &len, stdin) == -1)
-			break;
+		{ write(1,"\n",1);	
+			break;}
 		for (i = 0; i < 16; i++, line = NULL)
 			tok = strtok(line, " \t\n\r\0"), command[i] = tok;
 		command[i] = NULL;
